@@ -327,7 +327,7 @@
   <div class="toolbar">
     <div class="stats">
       <div class="stat"><b id="stat-total">0</b><span>ต้นทั้งหมด</span></div>
-      <div class="stat"><b id="stat-bloom">0</b><span>กำลังบาน</span></div>
+      <div class="stat"><b id="stat-days">0</b><span>เฉลี่ยวันในสวน 🌱</span></div>
       <div class="stat"><b id="stat-variety">0</b><span>พันธุ์</span></div>
     </div>
     <div class="controls">
@@ -335,12 +335,6 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a7a6c" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         <input id="search" type="text" placeholder="ค้นหาชื่อ / พันธุ์ / ตำแหน่ง…">
       </div>
-      <select class="filter" id="filter-section">
-        <option value="">หมวด: ทั้งหมด</option>
-        <option value="Silver Symphony">🤍 Silver Symphony</option>
-        <option value="Warm Bloom">🧡 Warm Bloom</option>
-        <option value="Bold Drama">❤️‍🔥 Bold Drama</option>
-      </select>
       <select class="filter" id="filter-bloom">
         <option value="">สถานะดอก: ทั้งหมด</option>
         <option value="blooming">กำลังบาน</option>
@@ -748,14 +742,14 @@ function cardHTML(p){
 function render(){
   const q=document.getElementById("search").value.trim().toLowerCase();
   const fb=document.getElementById("filter-bloom").value;
-  const fs=document.getElementById("filter-section").value;
   let list=plants.filter(p=>{
     const hay=(p.name+" "+p.variety+" "+p.location+" "+(p.treeId||"")+" "+(p.role||"")).toLowerCase();
-    return (!q||hay.includes(q)) && (!fb||p.status===fb) && (!fs||p.section===fs);
+    return (!q||hay.includes(q)) && (!fb||p.status===fb);
   });
 
   document.getElementById("stat-total").textContent=plants.length;
-  document.getElementById("stat-bloom").textContent=plants.filter(p=>p.status==="blooming").length;
+  const ds=plants.map(p=>daysInGarden(p.planted)).filter(n=>n!==null);
+  document.getElementById("stat-days").textContent=ds.length?Math.round(ds.reduce((a,b)=>a+b,0)/ds.length).toLocaleString():"–";
   document.getElementById("stat-variety").textContent=new Set(plants.map(p=>p.variety||p.name).filter(Boolean)).size;
 
   const g=document.getElementById("gallery");
@@ -776,7 +770,6 @@ function render(){
 
 document.getElementById("search").addEventListener("input",render);
 document.getElementById("filter-bloom").addEventListener("change",render);
-document.getElementById("filter-section").addEventListener("change",render);
 document.querySelectorAll(".overlay").forEach(o=>o.addEventListener("click",e=>{if(e.target===o)o.classList.remove("open");}));
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".overlay").forEach(o=>o.classList.remove("open"));});
 
