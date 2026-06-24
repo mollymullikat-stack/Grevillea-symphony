@@ -791,20 +791,9 @@ function render(){
     return;
   }
 
-  // sort by Tree ID inside each section
-  const byId=(a,b)=>(a.name||"").localeCompare(b.name||"",undefined,{sensitivity:"base"});
-  let html="";
-  const ordered=[...SECTIONS.map(s=>s.name),"__none__"];
-  ordered.forEach(secName=>{
-    const items=list.filter(p=>(p.section||"")===(secName==="__none__"?"":secName)).sort(byId);
-    if(!items.length) return;
-    const meta=SECTIONS.find(s=>s.name===secName);
-    const head = meta
-      ? `<div class="sec-head" style="--g:${meta.grad}"><span class="sec-emoji">${meta.emoji}</span><div><div class="sec-name">${meta.name}</div><div class="sec-desc">${meta.desc}</div></div><span class="sec-count">${items.length}</span></div>`
-      : `<div class="sec-head" style="--g:linear-gradient(135deg,#b0a596,#d8cdbf)"><span class="sec-emoji">🌿</span><div><div class="sec-name">ยังไม่จัดหมวด</div><div class="sec-desc">รอกำหนด Section</div></div><span class="sec-count">${items.length}</span></div>`;
-    html += head + `<div class="gallery-grid">${items.map(cardHTML).join("")}</div>`;
-  });
-  g.innerHTML=html;
+  // single flat list, sorted A–Z by name (no section grouping)
+  list.sort((a,b)=>(a.name||"").localeCompare(b.name||"",undefined,{sensitivity:"base"}));
+  g.innerHTML=`<div class="gallery-grid">${list.map(cardHTML).join("")}</div>`;
 }
 
 document.getElementById("search").addEventListener("input",render);
