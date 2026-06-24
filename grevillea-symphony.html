@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grevillea Symphony — Buay Bloom Garden</title>
+<style>
+  :root{
+    --coral:#ff5a36;        /* grevillea red-orange */
+    --coral-deep:#e63a1f;
+    --tangerine:#ff8a3d;
+    --gold:#ffc23d;
+    --pink:#ff7eb3;
+    --magenta:#e94f9a;
+    --leaf:#2f9e6b;
+    --leaf-deep:#15724a;
+    --leaf-dark:#0c4630;
+    --cream:#fff7ef;
+    --ink:#2b2118;
+    --muted:#8a7a6c;
+    --card:#ffffff;
+    --shadow:0 10px 30px rgba(120,40,10,.12);
+    --shadow-lg:0 22px 55px rgba(120,40,10,.22);
+    --radius:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI","Sukhumvit Set","Helvetica Neue",system-ui,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgba(255,138,61,.18), transparent 60%),
+      radial-gradient(1000px 500px at -10% 10%, rgba(233,79,154,.16), transparent 55%),
+      radial-gradient(900px 700px at 50% 120%, rgba(47,158,107,.18), transparent 55%),
+      var(--cream);
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(120deg,var(--coral-deep),var(--coral) 28%,var(--tangerine) 55%,var(--gold) 100%);
+    color:#fff;
+    padding:46px 24px 130px;
+    text-align:center;
+  }
+  header .leaf-band{position:absolute;inset:0;opacity:.18;pointer-events:none;z-index:1}
+  .hero-photos{position:absolute;inset:0;display:flex;opacity:.3;pointer-events:none;z-index:0}
+  .hero-photos img{flex:1;height:100%;object-fit:cover;filter:saturate(1.15)}
+  header::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(120deg,rgba(230,58,31,.78),rgba(255,90,54,.6) 30%,rgba(255,138,61,.55) 60%,rgba(255,194,61,.65))}
+  .brand{display:flex;align-items:center;justify-content:center;gap:16px;position:relative;z-index:2}
+  .brand .mark{flex:0 0 auto;filter:drop-shadow(0 6px 14px rgba(0,0,0,.25))}
+  h1{
+    font-size:clamp(30px,6vw,56px);
+    font-weight:800;
+    letter-spacing:.5px;
+    text-shadow:0 3px 18px rgba(120,20,0,.35);
+    line-height:1.05;
+  }
+  h1 .sym{font-weight:300;font-style:italic}
+  .tagline{
+    position:relative;z-index:2;
+    margin-top:14px;font-size:clamp(15px,2.4vw,21px);
+    font-style:italic;font-weight:300;letter-spacing:.4px;
+    opacity:.97;text-shadow:0 2px 10px rgba(120,20,0,.3);
+  }
+  .garden-chip{
+    position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;
+    margin-top:18px;padding:8px 18px;border-radius:999px;
+    background:rgba(255,255,255,.22);backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,.4);font-size:14px;font-weight:600;letter-spacing:.5px;
+  }
+  .wave{position:absolute;bottom:-1px;left:0;width:100%;height:90px;display:block;z-index:1}
+
+  /* ---------- LAYOUT ---------- */
+  main{max-width:1180px;margin:-70px auto 60px;padding:0 20px;position:relative;z-index:3}
+
+  .toolbar{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:18px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  }
+  .stats{display:flex;gap:10px;flex-wrap:wrap}
+  .stat{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    min-width:84px;padding:10px 16px;border-radius:16px;color:#fff;
+    background:linear-gradient(135deg,var(--magenta),var(--coral));
+  }
+  .stat:nth-child(2){background:linear-gradient(135deg,var(--tangerine),var(--gold))}
+  .stat:nth-child(3){background:linear-gradient(135deg,var(--leaf),var(--leaf-deep))}
+  .stat b{font-size:24px;line-height:1}
+  .stat span{font-size:11px;opacity:.95;margin-top:3px;letter-spacing:.4px}
+
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;flex:1;justify-content:flex-end}
+  .search{
+    position:relative;flex:1;min-width:200px;max-width:360px;
+  }
+  .search input{
+    width:100%;padding:12px 14px 12px 42px;border-radius:14px;border:2px solid #f0e3d6;
+    font-size:15px;background:#fffdfb;outline:none;transition:.2s;
+  }
+  .search input:focus{border-color:var(--coral);box-shadow:0 0 0 4px rgba(255,90,54,.12)}
+  .search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.5}
+  select.filter{
+    padding:12px 14px;border-radius:14px;border:2px solid #f0e3d6;background:#fffdfb;
+    font-size:14px;outline:none;cursor:pointer;color:var(--ink);
+  }
+
+  .btn{
+    border:none;cursor:pointer;font-size:15px;font-weight:700;letter-spacing:.3px;
+    padding:13px 22px;border-radius:14px;display:inline-flex;align-items:center;gap:8px;
+    transition:transform .15s,box-shadow .2s,filter .2s;
+  }
+  .btn:active{transform:translateY(1px) scale(.99)}
+  .btn-primary{color:#fff;background:linear-gradient(135deg,var(--coral),var(--magenta));box-shadow:0 8px 20px rgba(233,79,154,.35)}
+  .btn-primary:hover{filter:brightness(1.05);box-shadow:0 12px 26px rgba(233,79,154,.45)}
+  .btn-ghost{background:#fff;color:var(--coral-deep);border:2px solid #f3dccf}
+  .btn-ghost:hover{background:#fff4ee}
+  .btn-soft{background:#f6ece3;color:var(--ink)}
+  .btn-soft:hover{background:#efe1d4}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{margin-top:26px}
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;margin-bottom:34px}
+  .sec-head{
+    display:flex;align-items:center;gap:14px;margin:30px 0 16px;padding:14px 20px;border-radius:18px;color:#fff;
+    background:var(--g);box-shadow:0 8px 20px rgba(120,40,10,.16);
+  }
+  .sec-head .sec-emoji{font-size:26px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+  .sec-head .sec-name{font-size:20px;font-weight:800;letter-spacing:.3px;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+  .sec-head .sec-desc{font-size:12.5px;opacity:.95;margin-top:1px}
+  .sec-head .sec-count{margin-left:auto;background:rgba(255,255,255,.28);padding:5px 14px;border-radius:999px;font-weight:800;font-size:15px}
+  .id-badge{position:absolute;top:12px;right:12px;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:800;color:#fff;background:rgba(43,33,24,.62);backdrop-filter:blur(4px);letter-spacing:.5px}
+  .card .role{font-size:12px;color:#7d3c98;font-weight:700;margin-top:2px}
+  .card-edit{
+    position:absolute;bottom:12px;left:12px;height:34px;padding:0 13px;border-radius:999px;border:none;cursor:pointer;
+    background:rgba(255,255,255,.94);color:var(--coral-deep);box-shadow:0 3px 9px rgba(0,0,0,.25);
+    font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:5px;transition:.15s;
+  }
+  .card-edit:hover{background:#fff;transform:scale(1.06);box-shadow:0 5px 14px rgba(0,0,0,.3)}
+  .card{
+    background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+    cursor:pointer;transition:transform .18s,box-shadow .25s;display:flex;flex-direction:column;
+    border:1px solid rgba(255,170,120,.18);
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+  .card .photo{height:190px;position:relative;overflow:hidden;background:linear-gradient(135deg,#ffe6d2,#ffd0e0)}
+  .card .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .card .photo .placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+  .bloom-badge{
+    position:absolute;top:12px;left:12px;padding:6px 12px;border-radius:999px;
+    font-size:11px;font-weight:800;letter-spacing:.5px;color:#fff;backdrop-filter:blur(4px);
+    display:flex;align-items:center;gap:5px;
+  }
+  .b-blooming{background:rgba(233,79,154,.92)}
+  .b-budding{background:rgba(255,138,61,.92)}
+  .b-resting{background:rgba(47,158,107,.92)}
+  .b-dormant{background:rgba(120,110,100,.9)}
+  .swatch{position:absolute;bottom:12px;right:12px;width:30px;height:30px;border-radius:50%;border:3px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.25)}
+  .card .body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column;gap:6px}
+  .card h3{font-size:20px;font-weight:800;line-height:1.15}
+  .card .variety{font-size:13px;color:var(--coral-deep);font-style:italic;font-weight:600}
+  .card .meta{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+  .pill{font-size:11px;padding:4px 10px;border-radius:999px;background:#f6ece3;color:var(--muted);font-weight:600;display:inline-flex;align-items:center;gap:4px}
+  .pill.season{background:linear-gradient(135deg,#fff0e0,#ffe0ee);color:var(--coral-deep)}
+
+  .empty{
+    grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--muted);
+    display:flex;flex-direction:column;align-items:center;gap:16px;
+  }
+  .empty h2{color:var(--ink);font-size:24px}
+  .empty p{max-width:420px;line-height:1.6}
+
+  /* ---------- MODAL ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(43,33,24,.55);backdrop-filter:blur(5px);
+    display:none;align-items:flex-start;justify-content:center;padding:30px 16px;z-index:50;overflow-y:auto;
+  }
+  .overlay.open{display:flex}
+  .modal{
+    background:var(--cream);border-radius:26px;width:100%;max-width:680px;box-shadow:var(--shadow-lg);
+    overflow:hidden;animation:pop .25s ease;
+  }
+  @keyframes pop{from{transform:scale(.95) translateY(14px);opacity:0}to{transform:none;opacity:1}}
+  .modal-head{
+    padding:20px 24px;color:#fff;display:flex;align-items:center;justify-content:space-between;
+    background:linear-gradient(120deg,var(--coral),var(--magenta));
+  }
+  .modal-head h2{font-size:22px;font-weight:800}
+  .x{background:rgba(255,255,255,.25);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer;line-height:1;transition:.15s}
+  .x:hover{background:rgba(255,255,255,.42)}
+  .modal-body{padding:24px;max-height:72vh;overflow-y:auto}
+
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;font-weight:700;color:var(--leaf-deep);margin-bottom:6px;letter-spacing:.3px}
+  .field input,.field textarea,.field select{
+    width:100%;padding:11px 13px;border-radius:12px;border:2px solid #ece0d2;background:#fff;
+    font-size:15px;font-family:inherit;outline:none;transition:.18s;color:var(--ink);
+  }
+  .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--coral);box-shadow:0 0 0 4px rgba(255,90,54,.1)}
+  .field textarea{resize:vertical;min-height:70px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .section-title{
+    display:flex;align-items:center;gap:10px;margin:22px 0 12px;font-size:15px;font-weight:800;color:var(--coral-deep);
+    text-transform:uppercase;letter-spacing:.8px;
+  }
+  .section-title::after{content:"";flex:1;height:2px;background:linear-gradient(90deg,#f3d8c6,transparent)}
+  .section-title .dot{width:9px;height:9px;border-radius:50%;background:var(--coral)}
+
+  /* month picker */
+  .months{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+  .month{
+    text-align:center;padding:9px 4px;border-radius:10px;border:2px solid #ece0d2;background:#fff;
+    font-size:12px;font-weight:700;cursor:pointer;transition:.12s;user-select:none;color:var(--muted);
+  }
+  .month.active{background:linear-gradient(135deg,var(--coral),var(--magenta));color:#fff;border-color:transparent;box-shadow:0 5px 12px rgba(233,79,154,.3)}
+
+  /* color picker */
+  .colors{display:flex;flex-wrap:wrap;gap:9px}
+  .color-opt{width:34px;height:34px;border-radius:50%;cursor:pointer;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.18);transition:.12s}
+  .color-opt.active{transform:scale(1.18);box-shadow:0 0 0 3px var(--ink)}
+
+  /* photo upload */
+  .photo-up{
+    border:2px dashed #e9c7b3;border-radius:16px;padding:18px;text-align:center;cursor:pointer;
+    background:#fff8f3;transition:.18s;position:relative;overflow:hidden;
+  }
+  .photo-up:hover{border-color:var(--coral);background:#fff2ea}
+  .photo-up img{max-height:170px;max-width:100%;border-radius:12px;display:block;margin:0 auto;object-fit:cover}
+  .photo-up .hint{color:var(--muted);font-size:14px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px}
+
+  .modal-foot{display:flex;gap:12px;justify-content:flex-end;padding:18px 24px;background:#fff;border-top:1px solid #f0e3d6}
+
+  /* ---------- DETAIL VIEW ---------- */
+  .detail-hero{height:260px;position:relative;background:linear-gradient(135deg,#ffe6d2,#ffd0e0)}
+  .detail-hero img{width:100%;height:100%;object-fit:cover}
+  .detail-hero .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+  .detail-hero .grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(43,33,24,.6),transparent 55%)}
+  .detail-hero .title{position:absolute;left:24px;bottom:18px;color:#fff;right:24px}
+  .detail-hero .title h2{font-size:30px;font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+  .detail-hero .title .var{font-style:italic;font-size:16px;opacity:.95;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+  .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:4px}
+  .info-box{background:#fff;border-radius:16px;padding:14px 16px;box-shadow:0 4px 14px rgba(120,40,10,.07);border-left:4px solid var(--coral)}
+  .info-box .k{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700}
+  .info-box .v{font-size:16px;font-weight:700;margin-top:4px;color:var(--ink)}
+  .info-box.leaf{border-left-color:var(--leaf)}
+  .info-box.gold{border-left-color:var(--gold)}
+  .info-box.pink{border-left-color:var(--magenta)}
+  .note-box{background:#fff;border-radius:16px;padding:16px 18px;margin-top:14px;line-height:1.65;box-shadow:0 4px 14px rgba(120,40,10,.07)}
+  .season-strip{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+  .season-strip .m{flex:1;min-width:44px;text-align:center;padding:8px 2px;border-radius:9px;font-size:11px;font-weight:700;background:#f1e6da;color:var(--muted)}
+  .season-strip .m.on{background:linear-gradient(135deg,var(--coral),var(--magenta));color:#fff}
+
+  footer{text-align:center;padding:30px 20px 50px;color:var(--muted);font-size:13px}
+  footer .note{font-style:italic}
+
+  @media(max-width:520px){
+    .row{grid-template-columns:1fr}
+    .months{grid-template-columns:repeat(4,1fr)}
+    .controls{justify-content:stretch}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <!-- real grevillea photo backdrop -->
+  <div class="hero-photos" aria-hidden="true">
+    <img src="images/red2.jpg" alt=""><img src="images/orange2.jpg" alt=""><img src="images/pink.jpg" alt=""><img src="images/yellow.jpg" alt=""><img src="images/pinkred.jpg" alt="">
+  </div>
+  <!-- decorative grevillea band -->
+  <svg class="leaf-band" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+      <path d="M80 280 q-10 -60 20 -110 M80 280 q-30 -30 -55 -45 M80 280 q10 -35 45 -45 M80 280 q-20 -20 -40 -20"/>
+      <path d="M1120 280 q10 -60 -20 -110 M1120 280 q30 -30 55 -45 M1120 280 q-10 -35 -45 -45"/>
+    </g>
+  </svg>
+  <div class="brand">
+    <!-- grevillea spider-flower mark -->
+    <svg class="mark" width="62" height="62" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke="#fff" stroke-width="3.5" stroke-linecap="round" fill="none">
+        <path d="M50 58 C50 40 38 24 30 14"/>
+        <path d="M50 58 C50 38 48 22 47 8"/>
+        <path d="M50 58 C52 40 60 24 68 12"/>
+        <path d="M50 58 C46 42 34 32 22 26"/>
+        <path d="M50 58 C54 42 66 32 78 28"/>
+        <path d="M50 58 C48 44 40 36 30 40"/>
+        <path d="M50 58 C52 44 60 36 70 40"/>
+      </g>
+      <g fill="#fff">
+        <circle cx="30" cy="14" r="3.4"/><circle cx="47" cy="8" r="3.4"/><circle cx="68" cy="12" r="3.4"/>
+        <circle cx="22" cy="26" r="3.4"/><circle cx="78" cy="28" r="3.4"/>
+        <circle cx="30" cy="40" r="3.4"/><circle cx="70" cy="40" r="3.4"/>
+      </g>
+      <circle cx="50" cy="60" r="6" fill="#ffc23d"/>
+    </svg>
+    <h1>Grevillea <span class="sym">Symphony</span></h1>
+  </div>
+  <p class="tagline">“When every bloom plays its season”</p>
+  <div class="garden-chip">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C8 6 8 10 12 14c4-4 4-8 0-12zM5 13c-3 2-3 5 0 8 3-2 3-5 0-8zm14 0c-3 3-3 6 0 8 3-3 3-5 0-8z"/></svg>
+    BUAY BLOOM GARDEN
+  </div>
+  <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C240,90 480,0 720,30 C960,60 1200,90 1440,40 L1440,90 L0,90 Z" fill="#fff7ef"/>
+  </svg>
+</header>
+
+<main>
+  <div class="toolbar">
+    <div class="stats">
+      <div class="stat"><b id="stat-total">0</b><span>ต้นทั้งหมด</span></div>
+      <div class="stat"><b id="stat-bloom">0</b><span>กำลังบาน</span></div>
+      <div class="stat"><b id="stat-variety">0</b><span>พันธุ์</span></div>
+    </div>
+    <div class="controls">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a7a6c" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="search" type="text" placeholder="ค้นหาชื่อ / พันธุ์ / ตำแหน่ง…">
+      </div>
+      <select class="filter" id="filter-section">
+        <option value="">หมวด: ทั้งหมด</option>
+        <option value="Silver Symphony">🤍 Silver Symphony</option>
+        <option value="Warm Bloom">🧡 Warm Bloom</option>
+        <option value="Bold Drama">❤️‍🔥 Bold Drama</option>
+      </select>
+      <select class="filter" id="filter-bloom">
+        <option value="">สถานะดอก: ทั้งหมด</option>
+        <option value="blooming">กำลังบาน</option>
+        <option value="budding">เริ่มผลิดอก</option>
+        <option value="resting">พักดอก</option>
+        <option value="dormant">พักตัว</option>
+      </select>
+      <button class="btn btn-primary" onclick="openForm()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        เพิ่มต้นใหม่
+      </button>
+    </div>
+  </div>
+
+  <div class="gallery" id="gallery"></div>
+</main>
+
+<footer>
+  <div>🎶 Grevillea Symphony · Buay Bloom Garden</div>
+  <div class="note">“When every bloom plays its season”</div>
+  <div style="margin-top:14px"><button class="btn btn-soft" style="font-size:13px;padding:9px 16px" onclick="resetCollection()">↻ โหลดคอลเลกชัน Buay Bloom (23 ต้น)</button></div>
+  <div style="margin-top:12px;font-size:11px;opacity:.8">ภาพประกอบดอกเกรวิลเลียจาก Wikimedia Commons (CC) · เป็นภาพตัวแทนตามโทนสีดอก</div>
+</footer>
+
+<!-- ============ FORM MODAL ============ -->
+<div class="overlay" id="form-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="form-title">เพิ่มต้นเกรวิลเลีย</h2>
+      <button class="x" onclick="closeForm()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="f-id">
+
+      <div class="section-title"><span class="dot"></span>ข้อมูลพื้นฐาน</div>
+      <div class="field">
+        <label>รูปต้นเกรวิลเลีย</label>
+        <div class="photo-up" id="photo-up" onclick="document.getElementById('f-photo-input').click()">
+          <div class="hint" id="photo-hint">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#ff5a36" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 17l-5-5-4 4-2-2-4 4"/></svg>
+            <span>คลิกเพื่ออัปโหลดรูป (เก็บไว้ในเครื่อง)</span>
+          </div>
+          <img id="photo-preview" style="display:none">
+        </div>
+        <input type="file" id="f-photo-input" accept="image/*" style="display:none" onchange="handlePhoto(event)">
+      </div>
+      <div class="row">
+        <div class="field"><label>Tree ID 🎼</label><input id="f-treeid" placeholder="เช่น G01"></div>
+        <div class="field"><label>หมวด (Section)</label>
+          <select id="f-section">
+            <option value="">— เลือก —</option>
+            <option value="Silver Symphony">🤍 Silver Symphony</option>
+            <option value="Warm Bloom">🧡 Warm Bloom</option>
+            <option value="Bold Drama">❤️‍🔥 Bold Drama</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field"><label>ชื่อเรียก / ชื่อต้น *</label><input id="f-name" placeholder="เช่น Catherine Sister"></div>
+        <div class="field"><label>พันธุ์ / Cultivar</label><input id="f-variety" placeholder="เช่น Grevillea 'Robyn Gordon'"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>บทบาทในวง 🎻 (Instrument)</label><input id="f-role" placeholder="เช่น Violin, Cello"></div>
+        <div class="field"><label>วันที่ปลูก</label><input id="f-planted" type="date"></div>
+      </div>
+      <div class="field"><label>ตำแหน่งในสวน</label><input id="f-location" placeholder="เช่น ริมอ่างน้ำนก / กระถางใหญ่ใกล้กำแพง"></div>
+
+      <div class="section-title"><span class="dot"></span>ช่วงการออกดอก 🎵</div>
+      <div class="field">
+        <label>สถานะดอกตอนนี้</label>
+        <select id="f-status">
+          <option value="blooming">🌸 กำลังบาน</option>
+          <option value="budding">🌱 เริ่มผลิดอก</option>
+          <option value="resting">🍃 พักดอก</option>
+          <option value="dormant">💤 พักตัว</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>เดือนที่ออกดอก (กดเลือกได้หลายเดือน)</label>
+        <div class="months" id="month-picker"></div>
+      </div>
+      <div class="field">
+        <label>สีดอก</label>
+        <div class="colors" id="color-picker"></div>
+      </div>
+
+      <div class="section-title"><span class="dot"></span>การดูแล</div>
+      <div class="row">
+        <div class="field"><label>การรดน้ำ</label><input id="f-water" placeholder="เช่น สัปดาห์ละ 2 ครั้ง"></div>
+        <div class="field"><label>แสงแดด</label>
+          <select id="f-sun">
+            <option value="">— เลือก —</option>
+            <option>แดดเต็มวัน</option><option>แดดรำไร</option><option>แดดครึ่งวัน</option><option>ร่มเงา</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field"><label>การตัดแต่ง</label><input id="f-prune" placeholder="เช่น หลังออกดอก"></div>
+        <div class="field"><label>ปุ๋ย</label><input id="f-fert" placeholder="เช่น ปุ๋ยฟอสฟอรัสต่ำ"></div>
+      </div>
+
+      <div class="section-title"><span class="dot"></span>ขนาด & การเติบโต</div>
+      <div class="row">
+        <div class="field"><label>ความสูง (ซม.)</label><input id="f-height" type="number" min="0" placeholder="เช่น 120"></div>
+        <div class="field"><label>ทรงพุ่มกว้าง (ซม.)</label><input id="f-width" type="number" min="0" placeholder="เช่น 90"></div>
+      </div>
+      <div class="field"><label>อัตราการเติบโต</label>
+        <select id="f-growth">
+          <option value="">— เลือก —</option>
+          <option>เร็ว</option><option>ปานกลาง</option><option>ช้า</option>
+        </select>
+      </div>
+      <div class="field"><label>บันทึกเพิ่มเติม</label><textarea id="f-notes" placeholder="เรื่องราว / การสังเกต / นกหรือผึ้งที่มาเยือน…"></textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-soft" onclick="closeForm()">ยกเลิก</button>
+      <button class="btn btn-primary" onclick="savePlant()">💾 บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DETAIL MODAL ============ -->
+<div class="overlay" id="detail-overlay">
+  <div class="modal">
+    <div id="detail-content"></div>
+  </div>
+</div>
+
+<script>
+const MONTHS = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+const COLORS = ["#ff5a36","#e63a1f","#ff8a3d","#ffc23d","#ff7eb3","#e94f9a","#c0392b","#f4d35e","#ffffff","#7d3c98"];
+const STATUS = {
+  blooming:{label:"กำลังบาน",cls:"b-blooming",icon:"🌸"},
+  budding:{label:"เริ่มผลิดอก",cls:"b-budding",icon:"🌱"},
+  resting:{label:"พักดอก",cls:"b-resting",icon:"🍃"},
+  dormant:{label:"พักตัว",cls:"b-dormant",icon:"💤"}
+};
+const KEY = "grevillea-symphony-v1";
+const IMG = "images/";
+
+/* months presets */
+const COOL=[10,11,0,1,2,3], DRY=[3,4,5,6,7,8], PINKS=[10,11,0,1,2], LONG=[0,1,2,9,10,11];
+
+/* ===== Buay Bloom Grevillea Collection — 23 ต้น ===== */
+const SEED = [
+  {treeId:"G01", name:"Catherine Sister", variety:"Grevillea 'Catherine Sister'", role:"Violin", section:"Silver Symphony", status:"resting", months:[11,0,1], color:"#ff5a36", photo:"red", notes:"ฟอร์มสูงสง่า · ใบ silver สวยมาก · ไม้เสียบยอด (grafted) · เจ้าหญิงของสวน 👑"},
+  {treeId:"G02", name:"Honey Barbara", variety:"Grevillea 'Honey Barbara'", role:"Cello", section:"Warm Bloom", status:"blooming", months:LONG, color:"#ff8a3d", photo:"orange", notes:"ดอกโทนชาไทย / apricot orange · warm luxury · ไม้ดอก signature ของสวน"},
+  {treeId:"G03", name:"Peach & Cream", variety:"Grevillea 'Peaches and Cream'", role:"Flute", section:"Warm Bloom", status:"resting", months:[9,10,11,0,1], color:"#ffb380", photo:"peach", notes:"ดอกไล่เฉด lime → cream → peach · romantic มาก"},
+  {treeId:"G04", name:"Flamingo", variety:"Grevillea 'Flamingo'", role:"Harp", section:"Bold Drama", status:"resting", months:PINKS, color:"#ff7e9d", photo:"pinkred", notes:"โทนชมพู–ส้ม · ช่วงนี้ยังไม่ค่อยออกดอก รอฤดูของมัน"},
+  {treeId:"G05", name:"Spirit of Anzac", variety:"Grevillea 'Spirit of Anzac'", role:"Trumpet", section:"Bold Drama", status:"resting", months:COOL, color:"#e63a1f", photo:"red2", notes:"red-orange · Hero cultivar รุ่นแรก ๆ ของสวน"},
+  {treeId:"G06", name:"Lime and Soda", variety:"Grevillea 'Lime and Soda'", role:"Oboe", section:"Warm Bloom", status:"resting", months:[10,11,0,1], color:"#c8d94f", photo:"yellow", location:"ใกล้กำแพง", notes:"เหลืองอมเขียว สดใส"},
+  {treeId:"G07", name:"Ivory Whip", variety:"Grevillea 'Ivory Whip'", role:"Clarinet", section:"Warm Bloom", status:"resting", months:[10,11,0,1,2], color:"#f0e2cf", photo:"cream", notes:"ดอกขาว / cream · ให้ mood สะอาด elegant"},
+  {treeId:"G08", name:"Dorothy Gordon", variety:"Grevillea 'Dorothy Gordon'", role:"Viola", section:"Warm Bloom", status:"resting", months:[11,0,1,2], color:"#b07fd4", photo:"lavender", notes:"โทนม่วง / lavender · rare tone ในสวนคุณ"},
+  {treeId:"G09", name:"Misty Pink", variety:"Grevillea 'Misty Pink'", role:"Piccolo", section:"Warm Bloom", status:"resting", months:PINKS, color:"#ffb6c8", photo:"pink", notes:"pastel pink · feminine มาก"},
+  {treeId:"G10", name:"Scarlet Moon", variety:"Grevillea 'Scarlet Moon'", role:"Timpani", section:"Bold Drama", status:"budding", months:COOL, color:"#c0392b", photo:"burgundy", location:"กระถางใหญ่ 90×120 ซม.", height:"120", width:"90", notes:"แดงกำมะหยี่ · Hero tree · ปลูกในกระถางใหญ่"},
+  {treeId:"G11", name:"Muffin", variety:"Grevillea 'Muffin'", role:"Mandolin", section:"Warm Bloom", status:"resting", months:PINKS, color:"#ff8fb0", photo:"pink", notes:"pink tone น่ารัก"},
+  {treeId:"G12", name:"Ned Kelly", variety:"Grevillea 'Ned Kelly'", role:"French Horn", section:"Warm Bloom", status:"resting", months:[9,10,11,0,1], color:"#d98a5a", photo:"peach", notes:"peach / copper tone"},
+  {treeId:"G13", name:"Aphrodite's Dream", variety:"Grevillea 'Aphrodite's Dream'", role:"Saxophone", section:"Bold Drama", status:"blooming", months:DRY, color:"#ff6b3d", photo:"orange2", notes:"red-orange สดใส"},
+  {treeId:"G14", name:"Little Robin", variety:"Grevillea 'Little Robin'", role:"Piccolo Trumpet", section:"Bold Drama", status:"resting", months:COOL, color:"#e63a1f", photo:"red", notes:"red สด"},
+  {treeId:"G15", name:"Lolly Pop", variety:"Grevillea 'Lolly Pop'", role:"Xylophone", section:"Warm Bloom", status:"resting", months:PINKS, color:"#ff85b3", photo:"pink", location:"กระถางใหญ่ ใกล้ Lime & Soda", notes:"pink · ปลูกในกระถางใหญ่"},
+  {treeId:"G16", name:"Casitas Pink", variety:"Grevillea 'Casitas Pink'", role:"Glockenspiel", section:"Warm Bloom", status:"resting", months:PINKS, color:"#ff9ec0", photo:"pink", notes:"pink cultivar · เพิ่งอัปเดตรูปล่าสุด"},
+  {treeId:"G17", name:"Lana Maree", variety:"Grevillea 'Lana Maree'", role:"Cello II", section:"Warm Bloom", status:"resting", months:PINKS, color:"#ff6f91", photo:"pinkred", prune:"เพิ่งตัดแต่ง", notes:"recently pruned · กำลังแตกพุ่มใหม่"},
+  {treeId:"G18", name:"พิณใบฟ้า (ต้นแรก)", variety:"silver-blue foliage form", role:"Double Bass", section:"Silver Symphony", status:"resting", months:[], color:"#9db4c8", photo:"silver", notes:"ทรงเตี้ย · ใบฟู silver-blue"},
+  {treeId:"G19", name:"พิณใบฟ้า (ต้นใหม่)", variety:"silver-blue foliage form", role:"Double Bass II", section:"Silver Symphony", status:"resting", months:[], color:"#9db4c8", photo:"silver", location:"แนวรั้ว (backdrop)", notes:"ตั้งใจให้เลื้อยตามแนวรั้ว · ใช้สร้าง backdrop"},
+  {treeId:"G20", name:"ใบเงิน", variety:"silver foliage form", role:"Conductor 🎼", section:"Silver Symphony", status:"resting", months:[], color:"#c2cdd6", photo:"cream", notes:"foliage star ของสวน · silver cloud / airy · นางฟ้าของสวน 🤍"},
+  {treeId:"G21", name:"ส้มว้าว", variety:"orange-flowering Grevillea", role:"Trumpet II", section:"Warm Bloom", status:"blooming", months:DRY, color:"#ff7a1a", photo:"orange2", location:"ริมอ่างน้ำนก", notes:"orange bloom · ช่วงนี้ติดช่อดกมาก · Hero tree สาย dramatic"},
+  {treeId:"G22", name:"Grevillea pteridifolia (ส้มเม่น)", variety:"Grevillea pteridifolia", role:"Trombone", section:"Bold Drama", status:"blooming", months:DRY, color:"#ff7a1a", photo:"orange2", notes:"orange species · ฟอร์มโดดเด่น (ส้มเม่น / lava paint)"},
+  {treeId:"G23", name:"Lemon Baby", variety:"Grevillea 'Lemon Baby'", role:"Triangle", section:"Warm Bloom", status:"blooming", months:[10,11,0,1,4,5], color:"#f4d35e", photo:"yellow", notes:"dwarf form · yellow tone"}
+];
+SEED.forEach(p=>{
+  p.id=p.treeId; p.photo=IMG+p.photo+".jpg";
+  p.sun=p.sun||"แดดเต็มวัน"; p.fert=p.fert||"ปุ๋ยฟอสฟอรัสต่ำ (low-P)";
+  p.water=p.water||""; p.prune=p.prune||""; p.height=p.height||""; p.width=p.width||"";
+  p.growth=p.growth||""; p.variety=p.variety||""; p.location=p.location||""; p.months=p.months||[];
+});
+function seedCopy(){ return SEED.map(x=>({...x, months:[...x.months]})); }
+
+let plants = load();
+let selMonths = new Set();
+let selColor = COLORS[0];
+
+function load(){ try{ const s=JSON.parse(localStorage.getItem(KEY)); return (Array.isArray(s)&&s.length)?s:seedCopy(); }catch(e){ return seedCopy(); } }
+function resetCollection(){
+  if(!confirm("โหลดคอลเลกชัน Buay Bloom (23 ต้น) ใหม่?\nข้อมูลที่แก้ไขไว้จะถูกแทนที่")) return;
+  localStorage.removeItem(KEY); plants=seedCopy(); render();
+}
+function persist(){ localStorage.setItem(KEY, JSON.stringify(plants)); }
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function esc(s){ return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+/* ---- placeholder grevillea illustration ---- */
+function flowerSVG(color){
+  return `<svg width="120" height="120" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="opacity:.85">
+    <g stroke="${color}" stroke-width="3" stroke-linecap="round" fill="none">
+      <path d="M50 60 C50 40 38 24 30 14"/><path d="M50 60 C50 38 48 22 47 8"/>
+      <path d="M50 60 C52 40 60 24 68 12"/><path d="M50 60 C46 42 34 32 22 26"/>
+      <path d="M50 60 C54 42 66 32 78 28"/><path d="M50 60 C48 44 40 36 30 40"/>
+      <path d="M50 60 C52 44 60 36 70 40"/>
+    </g>
+    <g fill="${color}">
+      <circle cx="30" cy="14" r="3.4"/><circle cx="47" cy="8" r="3.4"/><circle cx="68" cy="12" r="3.4"/>
+      <circle cx="22" cy="26" r="3.4"/><circle cx="78" cy="28" r="3.4"/>
+      <circle cx="30" cy="40" r="3.4"/><circle cx="70" cy="40" r="3.4"/>
+    </g>
+    <circle cx="50" cy="62" r="5.5" fill="#2f9e6b"/>
+  </svg>`;
+}
+
+/* ---- build pickers ---- */
+function buildPickers(){
+  const mp = document.getElementById("month-picker");
+  mp.innerHTML = MONTHS.map((m,i)=>`<div class="month" data-m="${i}" onclick="toggleMonth(${i},this)">${m}</div>`).join("");
+  const cp = document.getElementById("color-picker");
+  cp.innerHTML = COLORS.map(c=>`<div class="color-opt" data-c="${c}" style="background:${c}" onclick="pickColor('${c}',this)"></div>`).join("");
+}
+function toggleMonth(i,el){ if(selMonths.has(i)){selMonths.delete(i);el.classList.remove("active");}else{selMonths.add(i);el.classList.add("active");} }
+function pickColor(c,el){ selColor=c; document.querySelectorAll(".color-opt").forEach(e=>e.classList.remove("active")); el.classList.add("active"); }
+
+/* ---- photo ---- */
+let curPhoto = "";
+function handlePhoto(ev){
+  const file = ev.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    // downscale to keep localStorage small
+    const img = new Image();
+    img.onload = ()=>{
+      const max=900, scale=Math.min(1,max/Math.max(img.width,img.height));
+      const cv=document.createElement("canvas");
+      cv.width=img.width*scale; cv.height=img.height*scale;
+      cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);
+      curPhoto = cv.toDataURL("image/jpeg",0.82);
+      showPhotoPreview(curPhoto);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function showPhotoPreview(src){
+  const p=document.getElementById("photo-preview"), h=document.getElementById("photo-hint");
+  if(src){ p.src=src; p.style.display="block"; h.style.display="none"; }
+  else{ p.style.display="none"; h.style.display="flex"; }
+}
+
+/* ---- form ---- */
+function openForm(id){
+  document.getElementById("form-overlay").classList.add("open");
+  selMonths=new Set(); selColor=COLORS[0]; curPhoto="";
+  document.querySelectorAll(".month").forEach(e=>e.classList.remove("active"));
+  document.querySelectorAll(".color-opt").forEach(e=>e.classList.remove("active"));
+  document.querySelector('.color-opt')?.classList.add("active");
+  showPhotoPreview("");
+  const f=id?plants.find(p=>p.id===id):null;
+  document.getElementById("form-title").textContent = f?"แก้ไขข้อมูลต้น":"เพิ่มต้นเกรวิลเลีย";
+  document.getElementById("f-id").value = f?f.id:"";
+  const set=(k,v)=>document.getElementById(k).value=v||"";
+  set("f-treeid",f?.treeId); set("f-section",f?.section); set("f-role",f?.role);
+  set("f-name",f?.name); set("f-variety",f?.variety); set("f-location",f?.location); set("f-planted",f?.planted);
+  set("f-status",f?.status||"blooming"); set("f-water",f?.water); set("f-sun",f?.sun); set("f-prune",f?.prune);
+  set("f-fert",f?.fert); set("f-height",f?.height); set("f-width",f?.width); set("f-growth",f?.growth); set("f-notes",f?.notes);
+  if(f){
+    (f.months||[]).forEach(i=>{selMonths.add(i); document.querySelector(`.month[data-m="${i}"]`)?.classList.add("active");});
+    if(f.color){selColor=f.color; document.querySelectorAll(".color-opt").forEach(e=>e.classList.remove("active")); document.querySelector(`.color-opt[data-c="${f.color}"]`)?.classList.add("active");}
+    if(f.photo){curPhoto=f.photo; showPhotoPreview(f.photo);}
+  }
+}
+function closeForm(){ document.getElementById("form-overlay").classList.remove("open"); }
+
+function savePlant(){
+  const name=document.getElementById("f-name").value.trim();
+  if(!name){ alert("กรุณาใส่ชื่อเรียก / รหัสต้น 🌿"); return; }
+  const g=k=>document.getElementById(k).value.trim();
+  const id=document.getElementById("f-id").value;
+  const data={
+    id:id||uid(), treeId:g("f-treeid"), section:g("f-section"), role:g("f-role"),
+    name, variety:g("f-variety"), location:g("f-location"), planted:g("f-planted"),
+    status:g("f-status"), months:[...selMonths].sort((a,b)=>a-b), color:selColor,
+    water:g("f-water"), sun:g("f-sun"), prune:g("f-prune"), fert:g("f-fert"),
+    height:g("f-height"), width:g("f-width"), growth:g("f-growth"), notes:g("f-notes"), photo:curPhoto
+  };
+  if(id){ const i=plants.findIndex(p=>p.id===id); plants[i]=data; }
+  else plants.unshift(data);
+  persist(); closeForm(); render();
+}
+
+function delPlant(id){
+  if(!confirm("ลบต้นนี้ออกจากสวน?")) return;
+  plants=plants.filter(p=>p.id!==id); persist();
+  document.getElementById("detail-overlay").classList.remove("open"); render();
+}
+
+/* ---- detail ---- */
+function showDetail(id){
+  const p=plants.find(x=>x.id===id); if(!p) return;
+  const st=STATUS[p.status]||STATUS.blooming;
+  const photo = p.photo
+    ? `<img src="${p.photo}">`
+    : `<div class="ph" style="background:linear-gradient(135deg,#ffe6d2,#ffd0e0)">${flowerSVG(p.color||'#ff5a36')}</div>`;
+  const info=(k,v,cls="")=> v?`<div class="info-box ${cls}"><div class="k">${k}</div><div class="v">${esc(v)}</div></div>`:"";
+  const seasonStrip = `<div class="season-strip">${MONTHS.map((m,i)=>`<div class="m ${(p.months||[]).includes(i)?'on':''}">${m}</div>`).join("")}</div>`;
+  const dims = (p.height||p.width) ? `${p.height||"–"}${p.width?" × "+p.width:""} ซม.` : "";
+  document.getElementById("detail-content").innerHTML=`
+    <div class="detail-hero">
+      ${photo}<div class="grad"></div>
+      <button class="x" style="position:absolute;top:16px;right:16px" onclick="document.getElementById('detail-overlay').classList.remove('open')">×</button>
+      <div class="title">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+          <div class="bloom-badge ${st.cls}" style="position:relative;display:inline-flex;top:0;left:0">${st.icon} ${st.label}</div>
+          ${p.treeId?`<div class="bloom-badge" style="position:relative;top:0;left:0;background:rgba(43,33,24,.6)">🎼 ${esc(p.treeId)}</div>`:""}
+          ${p.role?`<div class="bloom-badge" style="position:relative;top:0;left:0;background:rgba(125,60,152,.85)">🎻 ${esc(p.role)}</div>`:""}
+        </div>
+        <h2>${esc(p.name)}</h2>
+        ${p.variety?`<div class="var">${esc(p.variety)}</div>`:""}
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="info-grid">
+        ${info("หมวด (Section)",p.section,"pink")}
+        ${info("ตำแหน่งในสวน",p.location)}
+        ${info("วันที่ปลูก",p.planted,"leaf")}
+        ${info("สีดอก", p.color?"●":"" ).replace("●",`<span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:${p.color};vertical-align:middle;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)"></span>`)}
+        ${info("ขนาดทรงพุ่ม",dims,"gold")}
+        ${info("อัตราการเติบโต",p.growth,"leaf")}
+      </div>
+
+      <div class="section-title" style="margin-top:20px"><span class="dot"></span>ช่วงการออกดอก 🎵</div>
+      ${seasonStrip}
+
+      <div class="section-title"><span class="dot"></span>การดูแล</div>
+      <div class="info-grid">
+        ${info("การรดน้ำ",p.water,"pink")}
+        ${info("แสงแดด",p.sun,"gold")}
+        ${info("การตัดแต่ง",p.prune,"leaf")}
+        ${info("ปุ๋ย",p.fert,"pink")}
+      </div>
+      ${p.notes?`<div class="note-box"><b style="color:var(--coral-deep)">📝 บันทึก</b><br>${esc(p.notes).replace(/\n/g,"<br>")}</div>`:""}
+
+      <div class="modal-foot" style="background:transparent;border:none;padding:20px 0 4px">
+        <button class="btn btn-soft" onclick="delPlant('${p.id}')">🗑️ ลบ</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('detail-overlay').classList.remove('open');openForm('${p.id}')">✏️ แก้ไข</button>
+      </div>
+    </div>`;
+  document.getElementById("detail-overlay").classList.add("open");
+}
+
+/* ---- section meta (order + colour) ---- */
+const SECTIONS = [
+  {name:"Silver Symphony", emoji:"🤍", desc:"ใบเงิน / พิณใบฟ้า / ฟอร์มสง่า", grad:"linear-gradient(135deg,#9db4c8,#cfd9e2)"},
+  {name:"Warm Bloom",      emoji:"🧡", desc:"โทนอุ่น apricot · peach · pink", grad:"linear-gradient(135deg,#ff8a3d,#ffc23d)"},
+  {name:"Bold Drama",      emoji:"❤️‍🔥", desc:"แดง–ส้มจัดจ้าน Hero trees", grad:"linear-gradient(135deg,#e63a1f,#e94f9a)"}
+];
+
+function cardHTML(p){
+  const st=STATUS[p.status]||STATUS.blooming;
+  const seasonTxt=(p.months||[]).length ? MONTHS.filter((_,i)=>p.months.includes(i)).join(" · ") : "";
+  const photo=p.photo
+    ? `<img src="${p.photo}" loading="lazy">`
+    : `<div class="placeholder">${flowerSVG(p.color||'#ff5a36')}</div>`;
+  return `<div class="card" onclick="showDetail('${p.id}')">
+    <div class="photo">
+      ${photo}
+      <div class="bloom-badge ${st.cls}">${st.icon} ${st.label}</div>
+      ${p.treeId?`<div class="id-badge">🎼 ${esc(p.treeId)}</div>`:""}
+      <button class="card-edit" title="แก้ไขต้นนี้" onclick="event.stopPropagation();openForm('${p.id}')">✏️ แก้ไข</button>
+      ${p.color?`<div class="swatch" style="background:${p.color}"></div>`:""}
+    </div>
+    <div class="body">
+      <h3>${esc(p.name)}</h3>
+      ${p.variety?`<div class="variety">${esc(p.variety)}</div>`:""}
+      ${p.role?`<div class="role">🎻 ${esc(p.role)}</div>`:""}
+      <div class="meta">
+        ${p.location?`<span class="pill">📍 ${esc(p.location)}</span>`:""}
+        ${seasonTxt?`<span class="pill season">🎵 ${esc(seasonTxt)}</span>`:""}
+        ${p.height?`<span class="pill">📏 ${esc(p.height)} ซม.</span>`:""}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---- render gallery (grouped by section) ---- */
+function render(){
+  const q=document.getElementById("search").value.trim().toLowerCase();
+  const fb=document.getElementById("filter-bloom").value;
+  const fs=document.getElementById("filter-section").value;
+  let list=plants.filter(p=>{
+    const hay=(p.name+" "+p.variety+" "+p.location+" "+(p.treeId||"")+" "+(p.role||"")).toLowerCase();
+    return (!q||hay.includes(q)) && (!fb||p.status===fb) && (!fs||p.section===fs);
+  });
+
+  document.getElementById("stat-total").textContent=plants.length;
+  document.getElementById("stat-bloom").textContent=plants.filter(p=>p.status==="blooming").length;
+  document.getElementById("stat-variety").textContent=new Set(plants.map(p=>p.variety||p.name).filter(Boolean)).size;
+
+  const g=document.getElementById("gallery");
+  if(!list.length){
+    g.innerHTML=`<div class="empty">
+      ${flowerSVG('#ff8a3d')}
+      <h2>${plants.length?"ไม่พบต้นที่ค้นหา":"ยังไม่มีต้นเกรวิลเลียในสวน"}</h2>
+      <p>${plants.length?"ลองเปลี่ยนคำค้นหาหรือตัวกรองดูนะครับ":"เริ่มบันทึกต้นแรกของคุณ แล้วให้ทุกดอกได้บรรเลงตามฤดูกาลของมัน 🎶"}</p>
+      ${plants.length?"":'<button class="btn btn-primary" onclick="openForm()">+ เพิ่มต้นแรก</button>'}
+    </div>`;
+    return;
+  }
+
+  // sort by Tree ID inside each section
+  const byId=(a,b)=>(a.treeId||"zzz").localeCompare(b.treeId||"zzz",undefined,{numeric:true});
+  let html="";
+  const ordered=[...SECTIONS.map(s=>s.name),"__none__"];
+  ordered.forEach(secName=>{
+    const items=list.filter(p=>(p.section||"")===(secName==="__none__"?"":secName)).sort(byId);
+    if(!items.length) return;
+    const meta=SECTIONS.find(s=>s.name===secName);
+    const head = meta
+      ? `<div class="sec-head" style="--g:${meta.grad}"><span class="sec-emoji">${meta.emoji}</span><div><div class="sec-name">${meta.name}</div><div class="sec-desc">${meta.desc}</div></div><span class="sec-count">${items.length}</span></div>`
+      : `<div class="sec-head" style="--g:linear-gradient(135deg,#b0a596,#d8cdbf)"><span class="sec-emoji">🌿</span><div><div class="sec-name">ยังไม่จัดหมวด</div><div class="sec-desc">รอกำหนด Section</div></div><span class="sec-count">${items.length}</span></div>`;
+    html += head + `<div class="gallery-grid">${items.map(cardHTML).join("")}</div>`;
+  });
+  g.innerHTML=html;
+}
+
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("filter-bloom").addEventListener("change",render);
+document.getElementById("filter-section").addEventListener("change",render);
+document.querySelectorAll(".overlay").forEach(o=>o.addEventListener("click",e=>{if(e.target===o)o.classList.remove("open");}));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".overlay").forEach(o=>o.classList.remove("open"));});
+
+buildPickers();
+render();
+</script>
+</body>
+</html>

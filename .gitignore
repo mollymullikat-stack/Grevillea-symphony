@@ -1,0 +1,11 @@
+# ไฟล์ของโปรเจกต์อื่นในโฟลเดอร์นี้ (ไม่เกี่ยวกับ Grevillea Symphony)
+admin.html
+register.html
+config.js
+serve.ps1
+*.bat
+
+# ระบบ
+Thumbs.db
+.DS_Store
+desktop.ini
