@@ -1,8 +1,7 @@
-FROM node:20-alpine
+FROM node:18-alpine
 WORKDIR /app
 RUN npm install -g serve@14
 COPY . .
-ENV PORT=3000
-EXPOSE 3000
-# serve binds to 0.0.0.0 on Railway's injected $PORT so the service is reachable
-CMD ["sh", "-c", "serve -l tcp://0.0.0.0:${PORT}"]
+# Railway injects $PORT at runtime; "serve -l <number>" binds 0.0.0.0 on it.
+# sh -c ensures ${PORT} is expanded (falls back to 3000 for local runs).
+CMD ["sh", "-c", "serve -s . -l ${PORT:-3000}"]
