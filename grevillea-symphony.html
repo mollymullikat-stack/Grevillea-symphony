@@ -165,6 +165,8 @@
   .card .meta{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
   .pill{font-size:11px;padding:4px 10px;border-radius:999px;background:#f6ece3;color:var(--muted);font-weight:600;display:inline-flex;align-items:center;gap:4px}
   .pill.season{background:linear-gradient(135deg,#fff0e0,#ffe0ee);color:var(--coral-deep)}
+  .pill.days-pill{background:linear-gradient(135deg,#e3f6ea,#d3efe0);color:var(--leaf-deep);font-weight:700}
+  .pill.days-pill b{font-weight:800}
 
   .empty{
     grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--muted);
@@ -346,7 +348,7 @@
 <footer>
   <div>🎶 Grevillea Symphony · Buay Bloom Garden</div>
   <div class="note">“When every bloom plays its season”</div>
-  <div style="margin-top:14px"><button class="btn btn-soft" style="font-size:13px;padding:9px 16px" onclick="resetCollection()">↻ โหลดคอลเลกชัน Buay Bloom (23 ต้น)</button></div>
+  <div style="margin-top:14px"><button class="btn btn-soft" style="font-size:13px;padding:9px 16px" onclick="resetCollection()">↻ โหลดคอลเลกชัน Buay Bloom (30 ต้น)</button></div>
   <div style="margin-top:12px;font-size:11px;opacity:.8">ภาพประกอบดอกเกรวิลเลียจาก Wikimedia Commons (CC) · เป็นภาพตัวแทนตามโทนสีดอก</div>
 </footer>
 
@@ -463,14 +465,14 @@ const STATUS = {
   resting:{label:"พักดอก",cls:"b-resting",icon:"🍃"},
   dormant:{label:"พักตัว",cls:"b-dormant",icon:"💤"}
 };
-const KEY = "grevillea-symphony-v1";
+const KEY = "grevillea-symphony-v2";
 const IMG = "images/";
 
 /* months presets */
 const COOL=[10,11,0,1,2,3], DRY=[3,4,5,6,7,8], PINKS=[10,11,0,1,2], LONG=[0,1,2,9,10,11];
 
-/* ===== Buay Bloom Grevillea Collection — 23 ต้น ===== */
-const SEED = [
+/* ===== (legacy 23-tree seed — superseded by the 30-tree list below; unused) ===== */
+const SEED_PREV = [
   {treeId:"G01", name:"Catherine Sister", variety:"Grevillea 'Catherine Sister'", role:"Violin", section:"Silver Symphony", status:"resting", months:[11,0,1], color:"#ff5a36", photo:"red", notes:"ฟอร์มสูงสง่า · ใบ silver สวยมาก · ไม้เสียบยอด (grafted) · เจ้าหญิงของสวน 👑"},
   {treeId:"G02", name:"Honey Barbara", variety:"Grevillea 'Honey Barbara'", role:"Cello", section:"Warm Bloom", status:"blooming", months:LONG, color:"#ff8a3d", photo:"orange", notes:"ดอกโทนชาไทย / apricot orange · warm luxury · ไม้ดอก signature ของสวน"},
   {treeId:"G03", name:"Peach & Cream", variety:"Grevillea 'Peaches and Cream'", role:"Flute", section:"Warm Bloom", status:"resting", months:[9,10,11,0,1], color:"#ffb380", photo:"peach", notes:"ดอกไล่เฉด lime → cream → peach · romantic มาก"},
@@ -495,13 +497,63 @@ const SEED = [
   {treeId:"G22", name:"Grevillea pteridifolia (ส้มเม่น)", variety:"Grevillea pteridifolia", role:"Trombone", section:"Bold Drama", status:"blooming", months:DRY, color:"#ff7a1a", photo:"orange2", notes:"orange species · ฟอร์มโดดเด่น (ส้มเม่น / lava paint)"},
   {treeId:"G23", name:"Lemon Baby", variety:"Grevillea 'Lemon Baby'", role:"Triangle", section:"Warm Bloom", status:"blooming", months:[10,11,0,1,4,5], color:"#f4d35e", photo:"yellow", notes:"dwarf form · yellow tone"}
 ];
+
+/* ===== Buay Bloom Grevillea Collection — 30 ต้น (อัปเดตตามสเปรดชีต ชื่อ+วันปลูก) ===== */
+const SEED = [
+  {treeId:"G01", name:"Spirit of Anzac", variety:"Grevillea 'Spirit of Anzac'", role:"Trumpet", section:"Bold Drama", status:"resting", color:"#e63a1f", photo:"red2", planted:"2025-12-21", notes:"red-orange · Hero cultivar รุ่นแรก ๆ ของสวน"},
+  {treeId:"G02", name:"Lime and Soda (oak rootstock)", variety:"Grevillea 'Lime and Soda'", role:"Oboe", section:"Warm Bloom", status:"resting", color:"#c8d94f", photo:"yellow", planted:"2025-12-25", notes:"เหลืองอมเขียว · ต่อยอดบนตอโอ๊ค (grafted on oak rootstock)"},
+  {treeId:"G03", name:"Ivory Whip", variety:"Grevillea 'Ivory Whip'", role:"Clarinet", section:"Warm Bloom", status:"resting", color:"#f0e2cf", photo:"cream", planted:"2025-12-25", notes:"ดอกขาว / cream · mood สะอาด elegant"},
+  {treeId:"G04", name:"Dorothy Gordon", variety:"Grevillea 'Dorothy Gordon'", role:"Viola", section:"Warm Bloom", status:"resting", color:"#b07fd4", photo:"lavender", planted:"2025-12-29", notes:"โทนม่วง / lavender · rare tone"},
+  {treeId:"G05", name:"Ned Kelly", variety:"Grevillea 'Ned Kelly'", role:"French Horn", section:"Warm Bloom", status:"resting", color:"#d98a5a", photo:"peach", planted:"2025-12-25", notes:"peach / copper tone"},
+  {treeId:"G06", name:"Scarlet Moon", variety:"Grevillea 'Scarlet Moon'", role:"Timpani", section:"Bold Drama", status:"budding", color:"#c0392b", photo:"burgundy", planted:"2026-01-23", notes:"แดงกำมะหยี่ · Hero tree"},
+  {treeId:"G07", name:"Pteridifolia", variety:"Grevillea pteridifolia", role:"Trombone", section:"Bold Drama", status:"blooming", color:"#ff7a1a", photo:"orange2", planted:"", notes:"orange species · ฟอร์มโดดเด่น (ส้มเม่น / lava paint) · ยังไม่ระบุวันปลูก"},
+  {treeId:"G08", name:"Costal Prestige", variety:"Grevillea 'Costal Prestige'", role:"Cello", section:"Warm Bloom", status:"resting", color:"#ff6f91", photo:"pinkred", planted:"2026-03-14", notes:"สี/รูปเป็นการคาดเดา — แตะแก้ไขปรับได้"},
+  {treeId:"G09", name:"Muffin", variety:"Grevillea 'Muffin'", role:"Mandolin", section:"Warm Bloom", status:"resting", color:"#ff8fb0", photo:"pink", planted:"2025-12-02", notes:"pink tone น่ารัก"},
+  {treeId:"G10", name:"Honey Barbara", variety:"Grevillea 'Honey Barbara'", role:"Cello", section:"Warm Bloom", status:"blooming", color:"#ff8a3d", photo:"orange", planted:"2025-12-02", notes:"apricot orange / โทนชาไทย · signature ของสวน"},
+  {treeId:"G11", name:"Flamingo", variety:"Grevillea 'Flamingo'", role:"Harp", section:"Bold Drama", status:"resting", color:"#ff7e9d", photo:"pinkred", planted:"2025-12-05", notes:"โทนชมพู–ส้ม"},
+  {treeId:"G12", name:"Aphrodite's Dream", variety:"Grevillea 'Aphrodite's Dream'", role:"Saxophone", section:"Bold Drama", status:"blooming", color:"#ff6b3d", photo:"orange2", planted:"2025-12-15", notes:"red-orange สดใส"},
+  {treeId:"G13", name:"Lime and Soda", variety:"Grevillea 'Lime and Soda'", role:"Oboe II", section:"Warm Bloom", status:"resting", color:"#c8d94f", photo:"yellow", planted:"2025-11-15", notes:"เหลืองอมเขียว สดใส"},
+  {treeId:"G14", name:"Lime and Soda (semi air-layered)", variety:"Grevillea 'Lime and Soda'", role:"Oboe III", section:"Warm Bloom", status:"resting", color:"#c8d94f", photo:"yellow", planted:"2025-11-29", notes:"ขยายพันธุ์แบบกึ่งตอน (semi air-layered)"},
+  {treeId:"G15", name:"Little Robin", variety:"Grevillea 'Little Robin'", role:"Piccolo Trumpet", section:"Bold Drama", status:"resting", color:"#e63a1f", photo:"red", planted:"2025-11-26", notes:"red สด"},
+  {treeId:"G16", name:"Lolly Pop", variety:"Grevillea 'Lolly Pop'", role:"Xylophone", section:"Warm Bloom", status:"resting", color:"#ff85b3", photo:"pink", planted:"2026-01-28", notes:"pink"},
+  {treeId:"G17", name:"Webb's Legacy", variety:"Grevillea 'Webb's Legacy'", role:"Trumpet II", section:"Warm Bloom", status:"resting", color:"#ff6b4a", photo:"red", planted:"2026-03-11", notes:"สี/รูปเป็นการคาดเดา — แตะแก้ไขปรับได้"},
+  {treeId:"G18", name:"Lanna Marie", variety:"Grevillea 'Lanna Marie'", role:"Cello II", section:"Warm Bloom", status:"resting", color:"#ff6f91", photo:"pinkred", planted:"2026-03-11", notes:"pink / red tone"},
+  {treeId:"G19", name:"Casitas Pink", variety:"Grevillea 'Casitas Pink'", role:"Glockenspiel", section:"Warm Bloom", status:"resting", color:"#ff9ec0", photo:"pink", planted:"2026-03-18", notes:"pink cultivar"},
+  {treeId:"G20", name:"Golden Lyre New Hybrid", variety:"Grevillea 'Golden Lyre' (new hybrid)", role:"Harp II", section:"Warm Bloom", status:"budding", color:"#ffc23d", photo:"orange", planted:"2026-03-18", notes:"golden tone · ลูกผสมใหม่ · สี/รูปเป็นการคาดเดา"},
+  {treeId:"G21", name:"Caterine Sister", variety:"Grevillea 'Caterine Sister'", role:"Violin", section:"Silver Symphony", status:"resting", color:"#ff5a36", photo:"red", planted:"2026-03-23", notes:"ใบ silver สวยมาก · ไม้เสียบยอด · เจ้าหญิงของสวน 👑"},
+  {treeId:"G22", name:"Orange Wow", variety:"orange-flowering Grevillea", role:"Trumpet III", section:"Bold Drama", status:"blooming", color:"#ff7a1a", photo:"orange2", location:"ริมอ่างน้ำนก", planted:"2026-04-09", notes:"orange bloom · ติดช่อดก · Hero tree สาย dramatic (เดิมชื่อ ส้มว้าว)"},
+  {treeId:"G23", name:"Kimbery Moon", variety:"Grevillea 'Kimbery Moon'", role:"Flute", section:"Warm Bloom", status:"resting", color:"#ffd76b", photo:"yellow", planted:"2026-05-07", notes:"สี/รูปเป็นการคาดเดา — แตะแก้ไขปรับได้"},
+  {treeId:"G24", name:"Gaudi Chaudi", variety:"Grevillea 'Gaudi Chaudi'", role:"Cymbals", section:"Bold Drama", status:"resting", color:"#d6324a", photo:"red2", planted:"2026-05-07", notes:"สี/รูปเป็นการคาดเดา — แตะแก้ไขปรับได้"},
+  {treeId:"G25", name:"Rasberry Dream", variety:"Grevillea 'Rasberry Dream'", role:"Harp III", section:"Warm Bloom", status:"resting", color:"#c2185b", photo:"pinkred", planted:"2026-04-29", notes:"โทน raspberry"},
+  {treeId:"G26", name:"Honey Barbara", variety:"Grevillea 'Honey Barbara'", role:"Cello III", section:"Warm Bloom", status:"blooming", color:"#ff8a3d", photo:"orange", planted:"2026-05-01", notes:"apricot orange · ต้นที่ 2 ของพันธุ์นี้"},
+  {treeId:"G27", name:"Outback Sunshine", variety:"Grevillea 'Outback Sunshine'", role:"Triangle", section:"Warm Bloom", status:"blooming", color:"#ffb300", photo:"yellow", planted:"2026-05-04", notes:"yellow / gold สดใส"},
+  {treeId:"G28", name:"Strawberry Blonde", variety:"Grevillea 'Strawberry Blonde'", role:"Flute II", section:"Warm Bloom", status:"resting", color:"#ff7e8a", photo:"pinkred", planted:"2026-05-30", notes:"โทนสตรอว์เบอร์รี"},
+  {treeId:"G29", name:"Bon Accord", variety:"Grevillea 'Bon Accord'", role:"Mandolin II", section:"Warm Bloom", status:"resting", color:"#ff85b3", photo:"pink", planted:"2026-06-07", notes:"สี/รูปเป็นการคาดเดา — แตะแก้ไขปรับได้"},
+  {treeId:"G30", name:"Honey Bird Yellow", variety:"Grevillea 'Honey Bird Yellow'", role:"Piccolo", section:"Warm Bloom", status:"blooming", color:"#f4d35e", photo:"yellow", planted:"2026-06-14", notes:"yellow tone · เพิ่งปลูกล่าสุด"}
+];
 SEED.forEach(p=>{
   p.id=p.treeId; p.photo=IMG+p.photo+".jpg";
   p.sun=p.sun||"แดดเต็มวัน"; p.fert=p.fert||"ปุ๋ยฟอสฟอรัสต่ำ (low-P)";
   p.water=p.water||""; p.prune=p.prune||""; p.height=p.height||""; p.width=p.width||"";
   p.growth=p.growth||""; p.variety=p.variety||""; p.location=p.location||""; p.months=p.months||[];
+  p.planted=p.planted||"";
 });
 function seedCopy(){ return SEED.map(x=>({...x, months:[...x.months]})); }
+
+/* ---- days-in-garden (real-time counter) ---- */
+function daysInGarden(planted){
+  if(!planted) return null;
+  const d=new Date(planted+"T00:00:00");
+  if(isNaN(d.getTime())) return null;
+  return Math.max(0, Math.floor((new Date()-d)/86400000));
+}
+function daysLabel(planted){
+  const n=daysInGarden(planted);
+  return n===null ? "—" : n.toLocaleString();
+}
+function updateDayCounters(){
+  document.querySelectorAll(".days-counter").forEach(el=>{ el.textContent=daysLabel(el.dataset.planted); });
+}
 
 let plants = load();
 let selMonths = new Set();
@@ -509,7 +561,7 @@ let selColor = COLORS[0];
 
 function load(){ try{ const s=JSON.parse(localStorage.getItem(KEY)); return (Array.isArray(s)&&s.length)?s:seedCopy(); }catch(e){ return seedCopy(); } }
 function resetCollection(){
-  if(!confirm("โหลดคอลเลกชัน Buay Bloom (23 ต้น) ใหม่?\nข้อมูลที่แก้ไขไว้จะถูกแทนที่")) return;
+  if(!confirm("โหลดคอลเลกชัน Buay Bloom (30 ต้น) ใหม่?\nข้อมูลที่แก้ไขไว้จะถูกแทนที่")) return;
   localStorage.removeItem(KEY); plants=seedCopy(); render();
 }
 function persist(){
@@ -652,6 +704,7 @@ function showDetail(id){
         ${info("หมวด (Section)",p.section,"pink")}
         ${info("ตำแหน่งในสวน",p.location)}
         ${info("วันที่ปลูก",p.planted,"leaf")}
+        ${p.planted?`<div class="info-box leaf"><div class="k">อยู่ในสวนมาแล้ว 🌱</div><div class="v"><span class="days-counter" data-planted="${p.planted}">${daysLabel(p.planted)}</span> วัน</div></div>`:""}
         ${info("สีดอก", p.color?"●":"" ).replace("●",`<span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:${p.color};vertical-align:middle;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)"></span>`)}
         ${info("ขนาดทรงพุ่ม",dims,"gold")}
         ${info("อัตราการเติบโต",p.growth,"leaf")}
@@ -703,6 +756,7 @@ function cardHTML(p){
       ${p.variety?`<div class="variety">${esc(p.variety)}</div>`:""}
       ${p.role?`<div class="role">🎻 ${esc(p.role)}</div>`:""}
       <div class="meta">
+        ${p.planted?`<span class="pill days-pill">🌱 อยู่มา <b class="days-counter" data-planted="${p.planted}">${daysLabel(p.planted)}</b> วัน</span>`:""}
         ${p.location?`<span class="pill">📍 ${esc(p.location)}</span>`:""}
         ${seasonTxt?`<span class="pill season">🎵 ${esc(seasonTxt)}</span>`:""}
         ${p.height?`<span class="pill">📏 ${esc(p.height)} ซม.</span>`:""}
@@ -760,6 +814,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelect
 
 buildPickers();
 render();
+setInterval(updateDayCounters, 30000); // refresh "days in garden" in real time
 </script>
 </body>
 </html>
