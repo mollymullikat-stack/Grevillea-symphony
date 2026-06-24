@@ -394,10 +394,7 @@
         <div class="field"><label>ชื่อเรียก / ชื่อต้น *</label><input id="f-name" placeholder="เช่น Catherine Sister"></div>
         <div class="field"><label>พันธุ์ / Cultivar</label><input id="f-variety" placeholder="เช่น Grevillea 'Robyn Gordon'"></div>
       </div>
-      <div class="row">
-        <div class="field"><label>บทบาทในวง 🎻 (Instrument)</label><input id="f-role" placeholder="เช่น Violin, Cello"></div>
-        <div class="field"><label>วันที่ปลูก</label><input id="f-planted" type="date"></div>
-      </div>
+      <div class="field"><label>วันที่ปลูก</label><input id="f-planted" type="date"></div>
       <div class="field"><label>ตำแหน่งในสวน</label><input id="f-location" placeholder="เช่น ริมอ่างน้ำนก / กระถางใหญ่ใกล้กำแพง"></div>
 
       <div class="section-title"><span class="dot"></span>ช่วงการออกดอก 🎵</div>
@@ -646,7 +643,7 @@ function openForm(id){
   document.getElementById("form-title").textContent = f?"แก้ไขข้อมูลต้น":"เพิ่มต้นเกรวิลเลีย";
   document.getElementById("f-id").value = f?f.id:"";
   const set=(k,v)=>document.getElementById(k).value=v||"";
-  set("f-treeid",f?.treeId); set("f-section",f?.section); set("f-role",f?.role);
+  set("f-treeid",f?.treeId); set("f-section",f?.section);
   set("f-name",f?.name); set("f-variety",f?.variety); set("f-location",f?.location); set("f-planted",f?.planted);
   set("f-status",f?.status||"blooming"); set("f-water",f?.water); set("f-sun",f?.sun); set("f-prune",f?.prune);
   set("f-fert",f?.fert); set("f-height",f?.height); set("f-width",f?.width); set("f-growth",f?.growth); set("f-notes",f?.notes);
@@ -664,7 +661,7 @@ function savePlant(){
   const g=k=>document.getElementById(k).value.trim();
   const id=document.getElementById("f-id").value;
   const data={
-    id:id||uid(), treeId:g("f-treeid"), section:g("f-section"), role:g("f-role"),
+    id:id||uid(), treeId:g("f-treeid"), section:g("f-section"),
     name, variety:g("f-variety"), location:g("f-location"), planted:g("f-planted"),
     status:g("f-status"), months:[...selMonths].sort((a,b)=>a-b), color:selColor,
     water:g("f-water"), sun:g("f-sun"), prune:g("f-prune"), fert:g("f-fert"),
@@ -699,7 +696,6 @@ function showDetail(id){
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
           <div class="bloom-badge ${st.cls}" style="position:relative;display:inline-flex;top:0;left:0">${st.icon} ${st.label}</div>
           ${p.treeId?`<div class="bloom-badge" style="position:relative;top:0;left:0;background:rgba(43,33,24,.6)">🎼 ${esc(p.treeId)}</div>`:""}
-          ${p.role?`<div class="bloom-badge" style="position:relative;top:0;left:0;background:rgba(125,60,152,.85)">🎻 ${esc(p.role)}</div>`:""}
         </div>
         <h2>${esc(p.name)}</h2>
         ${p.variety?`<div class="var">${esc(p.variety)}</div>`:""}
@@ -760,7 +756,6 @@ function cardHTML(p){
     <div class="body">
       <h3>${esc(p.name)}</h3>
       ${p.variety?`<div class="variety">${esc(p.variety)}</div>`:""}
-      ${p.role?`<div class="role">🎻 ${esc(p.role)}</div>`:""}
       <div class="meta">
         ${p.planted?`<span class="pill days-pill">🌱 อยู่มา <b class="days-counter" data-planted="${p.planted}">${daysLabel(p.planted)}</b> วัน</span>`:""}
         ${p.location?`<span class="pill">📍 ${esc(p.location)}</span>`:""}
@@ -797,7 +792,7 @@ function render(){
   }
 
   // sort by Tree ID inside each section
-  const byId=(a,b)=>(a.treeId||"zzz").localeCompare(b.treeId||"zzz",undefined,{numeric:true});
+  const byId=(a,b)=>(a.name||"").localeCompare(b.name||"",undefined,{sensitivity:"base"});
   let html="";
   const ordered=[...SECTIONS.map(s=>s.name),"__none__"];
   ordered.forEach(secName=>{
