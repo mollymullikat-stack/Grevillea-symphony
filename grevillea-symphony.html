@@ -353,7 +353,7 @@
 <footer>
   <div>🎶 Grevillea Symphony · Buay Bloom Garden</div>
   <div class="note">“When every bloom plays its season”</div>
-  <div style="margin-top:14px"><button class="btn btn-soft" style="font-size:13px;padding:9px 16px" onclick="resetCollection()">↻ โหลดคอลเลกชัน Buay Bloom (30 ต้น)</button></div>
+  <div style="margin-top:14px"><button class="btn btn-soft" style="font-size:13px;padding:9px 16px" onclick="resetCollection()">↻ โหลดคอลเลกชัน Buay Bloom (31 ต้น)</button></div>
   <div style="margin-top:12px;font-size:11px;opacity:.8">ภาพประกอบดอกเกรวิลเลียจาก Wikimedia Commons (CC) · เป็นภาพตัวแทนตามโทนสีดอก</div>
 </footer>
 
@@ -503,7 +503,7 @@ const SEED_PREV = [
   {treeId:"G23", name:"Lemon Baby", variety:"Grevillea 'Lemon Baby'", role:"Triangle", section:"Warm Bloom", status:"blooming", months:[10,11,0,1,4,5], color:"#f4d35e", photo:"yellow", notes:"dwarf form · yellow tone"}
 ];
 
-/* ===== Buay Bloom Grevillea Collection — 30 ต้น (อัปเดตตามสเปรดชีต ชื่อ+วันปลูก) ===== */
+/* ===== Buay Bloom Grevillea Collection — 31 ต้น (อัปเดตตามสเปรดชีต ชื่อ+วันปลูก) ===== */
 const SEED = [
   {treeId:"G01", name:"Spirit of Anzac", variety:"Grevillea 'Spirit of Anzac'", role:"Trumpet", section:"Bold Drama", status:"resting", color:"#e63a1f", photo:"red2", planted:"2025-12-21", notes:"red-orange · Hero cultivar รุ่นแรก ๆ ของสวน"},
   {treeId:"G02", name:"Lime and Soda (oak rootstock)", variety:"Grevillea 'Lime and Soda'", role:"Oboe", section:"Warm Bloom", status:"resting", color:"#c8d94f", photo:"yellow", planted:"2025-12-25", notes:"เหลืองอมเขียว · ต่อยอดบนตอโอ๊ค (grafted on oak rootstock)"},
@@ -534,7 +534,8 @@ const SEED = [
   {treeId:"G27", name:"Outback Sunshine", variety:"Grevillea 'Outback Sunshine'", role:"Triangle", section:"Warm Bloom", status:"blooming", color:"#ffb300", photo:"yellow", planted:"2026-05-04", notes:"yellow / gold สดใส"},
   {treeId:"G28", name:"Strawberry Blonde", variety:"Grevillea 'Strawberry Blonde'", role:"Flute II", section:"Warm Bloom", status:"resting", color:"#ff7e8a", photo:"pinkred", planted:"2026-05-30", notes:"โทนสตรอว์เบอร์รี"},
   {treeId:"G29", name:"Bon Accord", variety:"Grevillea 'Bon Accord'", role:"Mandolin II", section:"Warm Bloom", status:"resting", color:"#ff85b3", photo:"pink", planted:"2026-06-07", notes:"สี/รูปเป็นการคาดเดา — แตะแก้ไขปรับได้"},
-  {treeId:"G30", name:"Honey Bird Yellow", variety:"Grevillea 'Honey Bird Yellow'", role:"Piccolo", section:"Warm Bloom", status:"blooming", color:"#f4d35e", photo:"yellow", planted:"2026-06-14", notes:"yellow tone · เพิ่งปลูกล่าสุด"}
+  {treeId:"G30", name:"Honey Bird Yellow", variety:"Grevillea 'Honey Bird Yellow'", role:"Piccolo", section:"Warm Bloom", status:"blooming", color:"#f4d35e", photo:"yellow", planted:"2026-06-14", notes:"yellow tone · เพิ่งปลูกล่าสุด"},
+  {treeId:"G31", name:"Superb", variety:"Grevillea 'Superb' (banksii)", role:"Bassoon", section:"Warm Bloom", status:"blooming", color:"#ff8f6b", photo:"pinkred", planted:"2026-06-07", notes:"ดอกไล่เฉดชมพู–ส้ม–ครีม · บานเกือบทั้งปี · (รูปเป็นพันธุ์ Superb แท้ — สลับรูปจริงได้)"}
 ];
 SEED.forEach(p=>{
   p.id=p.treeId; p.photo=IMG+p.photo+".jpg";
@@ -566,7 +567,7 @@ let selColor = COLORS[0];
 
 function load(){ try{ const s=JSON.parse(localStorage.getItem(KEY)); return (Array.isArray(s)&&s.length)?s:seedCopy(); }catch(e){ return seedCopy(); } }
 function resetCollection(){
-  if(!confirm("โหลดคอลเลกชัน Buay Bloom (30 ต้น) ใหม่?\nข้อมูลที่แก้ไขไว้จะถูกแทนที่")) return;
+  if(!confirm("โหลดคอลเลกชัน Buay Bloom (31 ต้น) ใหม่?\nข้อมูลที่แก้ไขไว้จะถูกแทนที่")) return;
   localStorage.removeItem(KEY); plants=seedCopy(); render();
 }
 function persist(){
