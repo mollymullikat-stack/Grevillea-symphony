@@ -2,10 +2,14 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=grevillea-symphony.html">
 <title>Grevillea Symphony</title>
+<script>
+  // redirect to the app with a fresh timestamp so the latest version always loads (no stale cache)
+  location.replace('grevillea-symphony.html?t=' + Date.now());
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=grevillea-symphony.html"></noscript>
 <style>
-  body{font-family:"Segoe UI",sans-serif;background:#fff7ef;color:#2b2118;
+  body{font-family:"Segoe UI",sans-serif;background:#fffbf5;color:#2b2118;
        display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0;text-align:center}
   a{color:#e63a1f;font-weight:700}
 </style>
