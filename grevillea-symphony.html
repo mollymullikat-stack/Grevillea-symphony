@@ -49,10 +49,11 @@
     text-align:center;
   }
   header .leaf-band{position:absolute;inset:0;opacity:.18;pointer-events:none;z-index:1}
-  .hero-photos{position:absolute;inset:0;opacity:1;pointer-events:none;z-index:0}
-  .hero-photos img{width:100%;height:100%;object-fit:cover;object-position:center 48%;filter:saturate(1.04) contrast(1.02)}
+  .hero-photos{position:absolute;inset:0;opacity:1;pointer-events:none;z-index:0;background:#eee6da}
+  .hero-photos img{width:100%;height:100%;object-fit:cover;object-position:center 46%;
+    filter:brightness(1.16) saturate(1.12) contrast(0.94) sepia(0.08) hue-rotate(-6deg)}
   header::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:linear-gradient(180deg,rgba(38,24,14,.56) 0%,rgba(38,24,14,.20) 36%,rgba(58,30,16,.30) 70%,rgba(255,150,70,.42) 100%)}
+    background:linear-gradient(180deg,rgba(35,22,12,.40) 0%,rgba(48,32,18,.14) 40%,rgba(95,55,28,.18) 72%,rgba(255,170,95,.38) 100%)}
   .brand{display:flex;align-items:center;justify-content:center;gap:16px;position:relative;z-index:2}
   .brand .mark{flex:0 0 auto;filter:drop-shadow(0 6px 14px rgba(0,0,0,.25))}
   h1{
