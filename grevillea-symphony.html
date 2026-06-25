@@ -51,7 +51,7 @@
   }
   header .leaf-band{position:absolute;inset:0;opacity:.18;pointer-events:none;z-index:1}
   .hero-photos{position:absolute;inset:0;opacity:1;pointer-events:none;z-index:0;background:#eee6da}
-  .hero-photos img{width:100%;height:100%;object-fit:cover;object-position:center 66%;
+  .hero-photos img,.hero-photos video{width:100%;height:100%;object-fit:cover;object-position:center 66%;
     filter:brightness(1.09) saturate(1.38) contrast(0.92)}
   header::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
     background:linear-gradient(180deg,rgba(35,25,18,.36) 0%,rgba(45,35,28,.13) 42%,rgba(120,95,65,.09) 72%,rgba(255,247,234,.18) 100%)}
@@ -361,7 +361,10 @@
 <header>
   <!-- real grevillea photo backdrop -->
   <div class="hero-photos" aria-hidden="true">
-    <img src="images/garden-hero.jpg" alt="สวน Buay Bloom Garden">
+    <video autoplay muted loop playsinline poster="images/garden-hero.jpg">
+      <source src="images/garden-video.mp4" type="video/mp4">
+      <img src="images/garden-hero.jpg" alt="สวน Buay Bloom Garden">
+    </video>
   </div>
   <div class="petals" id="petals" aria-hidden="true"></div>
   <!-- decorative grevillea band -->
