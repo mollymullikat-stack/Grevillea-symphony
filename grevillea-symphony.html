@@ -294,8 +294,10 @@
 
   /* ---------- INTRO / QUOTE ---------- */
   .intro{margin-top:26px;text-align:center;padding:0 10px}
-  .intro .welcome{font-size:clamp(17px,2.6vw,22px);line-height:1.75;color:var(--ink);max-width:680px;margin:0 auto;font-weight:500}
+  .intro .welcome{font-size:clamp(17px,2.6vw,22px);line-height:1.75;color:var(--ink);max-width:680px;margin:0 auto;font-weight:500;text-wrap:balance}
   .intro .welcome b{color:var(--coral-deep)}
+  .intro .welcome .nowrap{white-space:nowrap}
+  .intro .welcome .welcome-2{display:inline-block;margin-top:8px}
   .quote-box{
     margin:18px auto 0;max-width:600px;min-height:58px;display:flex;align-items:center;justify-content:center;
     font-family:Georgia,"Cormorant Garamond",serif;font-style:italic;font-size:clamp(16px,2.6vw,21px);
@@ -467,7 +469,7 @@
   </div>
 
   <div class="intro reveal">
-    <p class="welcome">ยินดีต้อนรับสู่ <b>Buay Bloom Garden</b> — สวนที่เราค่อยๆ บ่มเพาะต้นเกรวิลเลียทีละต้น<br>เฝ้าดูทุกดอกผลิบานตามจังหวะและฤดูกาลของมันเอง 🌿</p>
+    <p class="welcome">ยินดีต้อนรับสู่ <b>Buay&nbsp;Bloom&nbsp;Garden</b> — สวนที่เราค่อยๆ บ่มเพาะต้น<span class="nowrap">เกรวิลเลีย</span>ทีละต้น<br><span class="welcome-2">เฝ้าดูทุกดอกผลิบานตามจังหวะและฤดูกาลของมันเอง 🌿</span></p>
     <div class="quote-box" id="quote-box"></div>
     <button class="quiz-btn" onclick="openQuiz()">🌼 หาเกรวิลเลียที่ใช่สำหรับคุณ</button>
   </div>
@@ -679,6 +681,12 @@ function daysLabel(planted){
 }
 function updateDayCounters(){
   document.querySelectorAll(".days-counter").forEach(el=>{ el.textContent=daysLabel(el.dataset.planted); });
+  // ให้กล่อง "เฉลี่ยวันในสวน" ขยับตามนาฬิกาด้วย (ข้ามเที่ยงคืนก็อัปเดตเอง)
+  const sd=document.getElementById("stat-days");
+  if(sd){
+    const ds=plants.map(p=>daysInGarden(p.planted)).filter(n=>n!==null);
+    sd.textContent=ds.length?Math.round(ds.reduce((a,b)=>a+b,0)/ds.length).toLocaleString():"–";
+  }
 }
 
 /* ---- blooming this month ---- */
