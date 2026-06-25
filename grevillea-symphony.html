@@ -945,6 +945,12 @@ buildPickers();
 render();
 renderFeatured();
 spawnPetals();
+/* loop only the first ~3s of the hero video */
+(function(){
+  const v=document.querySelector(".hero-photos video"); if(!v) return;
+  const CLIP=3;
+  v.addEventListener("timeupdate",()=>{ if(v.currentTime>=CLIP){ v.currentTime=0; v.play().catch(()=>{}); } });
+})();
 showQuote(); setInterval(showQuote, 6000);
 observeReveals();
 setInterval(updateDayCounters, 30000); // refresh "days in garden" in real time
